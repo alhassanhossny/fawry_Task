@@ -40,14 +40,21 @@ If we try:  ./mygrep.sh --help
 Q2 SOLUTION PLAN
 ------------------------------------------------------>
 
-1. Verify DNS Resolution
+1. Verify DNS Resolution:
+
 First, check what your default DNS says:
 cat /etc/resolv.conf
-You'll see nameserver IP(s) listed there.
+
+![alt text](<comparing resolution to Google DNS.png>)
+
+we can see nameserver IP(s) listed there.
 Use that IP to resolve the domain:
 dig @<your_dns_server> internal.example.com
-Example if /etc/resolv.conf shows 192.168.1.1:
-dig @192.168.1.1 internal.example.com
+As  shown in /etc/resolv.conf IP is 172.0.0.53:
+dig @127.0.0.53 internal.example.com
+
+![alt text](<DNS resolve.png>)
+
 Now, compare using Google DNS (8.8.8.8):
 dig @8.8.8.8 internal.example.com
 Screenshot both results.
@@ -57,15 +64,11 @@ Screenshot both results.
 
 > Interpret Results:
 
-If your internal DNS fails but 8.8.8.8 works → DNS server issue.
+If the internal DNS fails but 8.8.8.8 works... → DNS server issue.
 
-If both fail → Maybe host doesn't exist or DNS misconfigured.
+If both DNSs fail... → Maybe host doesn't exist or DNS misconfigured.
 
-If IPs are different → Potential wrong internal DNS record.
-
-
-
-
+If IPs are different... → There is a potential wrong internal DNS record.
 
 ---
 
