@@ -8,18 +8,21 @@ Screenshot for the Test Cases:
 ------------------------------------------------------>
 
 1- How does the script handle arguments and options?
+
 It loops through starting arguments with while [[ "$1" == -* ]] checking for flags.
 It uses simple pattern matching for options (n for -n, v for -v).
 Then it expects two arguments: search_string and filename.
 
 
 2- If supporting regex or -i/-c/-l options, how would the structure change?
+
 I would probably switch to getopts to parse more complex options cleanly.
 Add more variables like count_only, list_filenames, etc.
 Use native grep with flags internally (grep -c, grep -l, etc.) or extend manual matching.
 
 
 3- The Hardest part?
+
 Handling combinations like -vn, -nv cleanly was tricky, because Bash option parsing is messy without getopts.
 Also making sure that missing arguments are caught properly, not silently failing.
 
@@ -27,7 +30,9 @@ Also making sure that missing arguments are caught properly, not silently failin
 
 6. Bonus:
 ------------------------------------------------------>
+
 --help is Supported Already......
+
 If we try:  ./mygrep.sh --help
 
 ---
