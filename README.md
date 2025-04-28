@@ -55,10 +55,10 @@ dig @127.0.0.53 internal.example.com
 
 ![alt text](<DNS resolve.png>)
 
-Now, compare using Google DNS (8.8.8.8):
+Comparing using Google DNS (8.8.8.8):
 dig @8.8.8.8 internal.example.com
-Screenshot both results.
 
+![alt text](<comparing to Google DNS.png>)
 
 ---
 
@@ -74,7 +74,7 @@ If IPs are different... → There is a potential wrong internal DNS record.
 
 2. Diagnose Service Reachability
 
-Once you have an IP address, check if the service responds.
+Once we have an IP address, we check if the service responds.
 
 Test HTTP/HTTPS ports:
 
@@ -83,9 +83,7 @@ Using curl:
 curl -I http://internal.example.com
 curl -I https://internal.example.com
 
-(Use -k for HTTPS if needed to ignore cert errors.)
-
-Check port manually using telnet or nc:
+we Check port manually using telnet or nc:
 
 telnet internal.example.com 80
 
@@ -96,7 +94,7 @@ nc -zv internal.example.com 443
 
 Local service check (server side only):
 
-If you have SSH access to the internal server:
+If we have SSH access to the internal server:
 
 sudo ss -tulnp | grep -E '80|443'
 
@@ -106,19 +104,29 @@ sudo netstat -tulnp | grep -E '80|443'
 
 (Shows if Nginx, Apache, etc., are listening.)
 
+![alt text](Port_Check.png)
 
 ---
 
 3. Trace the Issue – List All Possible Causes
 
-Here’s a list you can include:
+Here’s a list we can include:
 
+Layer | Potential Cause | Quick Diagnostic
+DNS | Wrong DNS record (A/AAAA) | dig +trace internal.example.com
+DNS | DNS server misconfigured | systemctl status named / resolvectl status
+DNS | Cache corruption | systemd-resolve --flush-caches
+Network | Firewall blocking ports | sudo ufw status / iptables -L
+Network | Routing issues | traceroute internal.example.com
+Server | Web service down | systemctl status apache2 / nginx
+Server | Service listening on wrong interface | ss -tulnp
+Client | Wrong /etc/hosts entry | cat /etc/hosts
 
 ---
 
 4. Propose and Apply Fixes
 
-For each cause, I’ll show you what to check and how to fix it:
+For each cause, we’ll see what to check and how to fix it:
 
 
 ---
@@ -142,4 +150,115 @@ sudo systemctl reload bind9
 2. DNS Cache Corrupted
 
 Check:
-Sometimes `resolvectl
+
+Sometimes resolvectl can tell you DNS cache status.
+
+Fix:
+
+sudo systemd-resolve --flush-caches
+
+
+---
+
+3. Firewall Blocking
+
+Check:
+
+sudo ufw status
+
+or
+
+sudo iptables -L
+
+Fix:
+
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+
+
+---
+
+4. Service Not Listening
+
+Check:
+
+sudo ss -tulnp | grep -E '80|443'
+
+If nothing shows, service is down.
+
+Fix:
+
+sudo systemctl restart nginx
+
+or
+
+sudo systemctl restart apache2
+
+
+---
+
+5. Bad /etc/hosts Entry
+
+Check:
+
+cat /etc/hosts
+
+Fix: Edit and correct it:
+
+sudo nano /etc/hosts
+
+Example to add manually:
+
+192.168.1.100 internal.example.com
+
+
+---
+
+Bonus Tasks
+
+a. Bypass DNS using /etc/hosts
+
+Manually add:
+
+sudo nano /etc/hosts
+
+Add:
+
+192.168.1.100 internal.example.com
+
+Then test:
+
+ping internal.example.com
+
+b. Persist DNS settings (systemd-resolved or NetworkManager)
+
+If using systemd-resolved:
+
+sudo nano /etc/systemd/resolved.conf
+
+Uncomment and set:
+
+DNS=8.8.8.8
+FallbackDNS=1.1.1.1
+
+Restart it:
+
+sudo systemctl restart systemd-resolved
+
+If using NetworkManager:
+
+nm-connection-editor
+
+Edit your network connection.
+
+Set DNS servers manually.
+
+Save and restart networking:
+
+
+sudo systemctl restart NetworkManager
+
+
+---
+
+Final Deliverables for Your Report:
