@@ -112,7 +112,7 @@ sudo netstat -tulnp | grep -E '80|443'
 
 Here’s a list we can include:
 
-![alt text](<List Of All Possible Causes.png>)
+![alt text](<List of Causes.png>)
 
 ---
 
@@ -129,7 +129,9 @@ Check:
 
 dig internal.example.com
 
+
 If the IP is wrong, update the internal DNS server (or ask your admin).
+
 
 Fix (example on Linux DNS server):
 
@@ -144,6 +146,7 @@ sudo systemctl reload bind9
 Check:
 
 Sometimes resolvectl can tell you DNS cache status.
+
 
 Fix:
 
@@ -207,6 +210,7 @@ Example to add manually:
 ---
 
 Bonus Tasks
+--------------------------------------->
 
 a. Bypass DNS using /etc/hosts
 
@@ -253,4 +257,7 @@ sudo systemctl restart NetworkManager
 
 ---
 
-Final Deliverables for Your Report:
+Final Deliverables for the Report:
+
+![alt text](Final_Report.png)
+
