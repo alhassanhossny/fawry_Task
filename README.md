@@ -2,6 +2,8 @@ Screenshot for the Test Cases:
 
 ![Test Cases](Fawry_Test.png)
 
+---
+
 5. Reflective Section 
 ------------------------------------------------------>
 
@@ -21,13 +23,14 @@ Use native grep with flags internally (grep -c, grep -l, etc.) or extend manual 
 Handling combinations like -vn, -nv cleanly was tricky, because Bash option parsing is messy without getopts.
 Also making sure that missing arguments are caught properly, not silently failing.
 
+---
 
 6. Bonus:
 ------------------------------------------------------>
 --help is Supported Already......
 If we try:  ./mygrep.sh --help
 
-
+---
 
 Q2 SOLUTION PLAN
 ------------------------------------------------------>
