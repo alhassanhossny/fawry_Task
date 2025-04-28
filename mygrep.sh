@@ -10,7 +10,7 @@ show_help() {
   exit 0
 }
 
-# Check for --help flag
+# Check for --help Option
 if [[ "$1" == "--help" ]]; then
   show_help
 fi
