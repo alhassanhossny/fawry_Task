@@ -112,15 +112,7 @@ sudo netstat -tulnp | grep -E '80|443'
 
 Here’s a list we can include:
 
-Layer | Potential Cause | Quick Diagnostic
-DNS | Wrong DNS record (A/AAAA) | dig +trace internal.example.com
-DNS | DNS server misconfigured | systemctl status named / resolvectl status
-DNS | Cache corruption | systemd-resolve --flush-caches
-Network | Firewall blocking ports | sudo ufw status / iptables -L
-Network | Routing issues | traceroute internal.example.com
-Server | Web service down | systemctl status apache2 / nginx
-Server | Service listening on wrong interface | ss -tulnp
-Client | Wrong /etc/hosts entry | cat /etc/hosts
+![alt text](<List Of All Possible Causes.png>)
 
 ---
 
