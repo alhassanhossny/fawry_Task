@@ -129,6 +129,7 @@ Check:
 
 dig internal.example.com
 
+![alt text](<DNS Record Incorrect.png>)
 
 If the IP is wrong, update the internal DNS server (or ask your admin).
 
@@ -137,6 +138,8 @@ Fix (example on Linux DNS server):
 
 sudo nano /etc/bind/db.internal.example.com
 sudo systemctl reload bind9
+
+![alt text](<Fix DNS Server.png>)
 
 
 ---
@@ -170,6 +173,7 @@ Fix:
 sudo ufw allow 80/tcp
 sudo ufw allow 443/tcp
 
+![alt text](<Firewall Blocking.png>)
 
 ---
 
@@ -189,6 +193,7 @@ or
 
 sudo systemctl restart apache2
 
+![alt text](<Service Listing.png>)
 
 ---
 
@@ -198,6 +203,8 @@ Check:
 
 cat /etc/hosts
 
+![alt text](Hosts.png)
+
 Fix: Edit and correct it:
 
 sudo nano /etc/hosts
@@ -206,6 +213,7 @@ Example to add manually:
 
 192.168.1.100 internal.example.com
 
+![alt text](<Adding Host Manually.png>)
 
 ---
 
@@ -238,6 +246,8 @@ Uncomment and set:
 DNS=8.8.8.8
 FallbackDNS=1.1.1.1
 
+![alt text](Google-CloudFlare.png)
+
 Restart it:
 
 sudo systemctl restart systemd-resolved
@@ -255,6 +265,7 @@ Save and restart networking:
 
 sudo systemctl restart NetworkManager
 
+![alt text](Bonus.png)
 
 ---
 
