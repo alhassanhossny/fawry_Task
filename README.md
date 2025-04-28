@@ -31,7 +31,7 @@ Also making sure that missing arguments are caught properly, not silently failin
 6. Bonus:
 ------------------------------------------------------>
 
---help is Supported Already......
+--help is working ......
 
 If we try:  ./mygrep.sh --help
 
